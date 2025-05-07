@@ -10,30 +10,33 @@ public class FlappyBird extends ApplicationAdapter {
     private SpriteBatch batch;
     private Texture background;
     private float[] backgroundOffsets = {0, 360, 720};
+    private float scrollSpeed = 2;
+    private Bird bird;
 
     @Override
     public void create() {
         batch = new SpriteBatch();
         background = new Texture("back.jpg");
+        bird = new Bird();
     }
 
     @Override
     public void render() {
-        // Очистка экрана
-        Gdx.gl.glClearColor(0.15f, 0.15f, 0.2f, 1f);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        InputHandler.getInstance().update();
+
         for (int i = 0; i < backgroundOffsets.length; i++) {
-            backgroundOffsets[i] -= 2;
-            if (backgroundOffsets[i] <= -360) {
-                backgroundOffsets[i] = 720;
-            }
+            backgroundOffsets[i] -= scrollSpeed;
+            if (backgroundOffsets[i] <= -360) backgroundOffsets[i] = 720;
         }
 
+        bird.update(Gdx.graphics.getDeltaTime());
 
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         for (float offset : backgroundOffsets) {
             batch.draw(background, offset, 0, 360, 640);
         }
+        bird.render(batch);
         batch.end();
     }
 
@@ -41,5 +44,6 @@ public class FlappyBird extends ApplicationAdapter {
     public void dispose() {
         batch.dispose();
         background.dispose();
+        bird.dispose();
     }
 }
