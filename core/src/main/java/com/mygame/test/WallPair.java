@@ -1,7 +1,7 @@
 package com.mygame.test;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
+import com.badlogic.gdx.math.Rectangle;
 
 public class WallPair {
     private final Wall topWall;
@@ -12,6 +12,12 @@ public class WallPair {
         this.gapY = gapY;
         topWall = new Wall(x, gapY + 440, true);
         bottomWall = new Wall(x, gapY - 400, false);
+    }
+    public Rectangle getTopBounds(){
+        return topWall.getBounds();
+    }
+    public Rectangle getBottomBounds(){
+        return bottomWall.getBounds();
     }
     public Wall getTopWall(){
         return topWall;

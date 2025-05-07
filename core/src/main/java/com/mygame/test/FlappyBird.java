@@ -18,6 +18,7 @@ public class FlappyBird extends ApplicationAdapter {
     private WallFactory wallFactory;
     private float timeSinceLastWall=0;
     private static final float WALL_SPAWN_TIME=2f;
+    private CollisionManager collisionManager;
 
     @Override
     public void create() {
@@ -26,6 +27,10 @@ public class FlappyBird extends ApplicationAdapter {
         bird = new Bird();
         walls=new ArrayList<>();
         wallFactory=new WallFactory();
+        collisionManager =new CollisionManager(bird, walls);
+        collisionManager.addListener(()->{
+            Gdx.app.log("COLLISION", "GAME OVER!");
+        });
     }
 
     @Override
@@ -38,6 +43,7 @@ public class FlappyBird extends ApplicationAdapter {
         }
 
         bird.update(Gdx.graphics.getDeltaTime());
+        collisionManager.checkCollisions();
         timeSinceLastWall+=Gdx.graphics.getDeltaTime();
         if(timeSinceLastWall>=WALL_SPAWN_TIME){
             walls.add(wallFactory.createWallPair(720));
