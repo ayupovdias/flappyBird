@@ -1,4 +1,6 @@
 package com.mygame.test;
+import java.util.List;
+import java.util.ArrayList;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -12,12 +14,18 @@ public class FlappyBird extends ApplicationAdapter {
     private float[] backgroundOffsets = {0, 360, 720};
     private float scrollSpeed = 2;
     private Bird bird;
+    private List<WallPair> walls;
+    private WallFactory wallFactory;
+    private float timeSinceLastWall=0;
+    private static final float WALL_SPAWN_TIME=2f;
 
     @Override
     public void create() {
         batch = new SpriteBatch();
         background = new Texture("back.jpg");
         bird = new Bird();
+        walls=new ArrayList<>();
+        wallFactory=new WallFactory();
     }
 
     @Override
@@ -30,14 +38,25 @@ public class FlappyBird extends ApplicationAdapter {
         }
 
         bird.update(Gdx.graphics.getDeltaTime());
-
+        timeSinceLastWall+=Gdx.graphics.getDeltaTime();
+        if(timeSinceLastWall>=WALL_SPAWN_TIME){
+            walls.add(wallFactory.createWallPair(720));
+            timeSinceLastWall=0;
+        }
+        for(WallPair wall:walls){
+            wall.update(scrollSpeed);
+        }
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         for (float offset : backgroundOffsets) {
             batch.draw(background, offset, 0, 360, 640);
         }
+        for(WallPair wall:walls){
+            wall.render(batch);
+        }
         bird.render(batch);
         batch.end();
+        walls.removeIf(wall->wall.getTopWall().getX()<-50);
     }
 
     @Override
@@ -45,5 +64,8 @@ public class FlappyBird extends ApplicationAdapter {
         batch.dispose();
         background.dispose();
         bird.dispose();
+        for(WallPair wall: walls){
+            wall.dispose();
+        }
     }
 }
