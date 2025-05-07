@@ -16,7 +16,7 @@ public class GameOverState implements GameState {
 
 
         if (InputHandler.getInstance().isSpacePressed()) {
-            GameStateManager.getInstance().setState(new PlayState());
+            GameStateManager.getInstance().setState(new PlayState(2f));
         }
     }
 

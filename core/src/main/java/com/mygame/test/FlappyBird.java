@@ -1,7 +1,9 @@
 package com.mygame.test;
+
 import java.util.List;
 import java.util.ArrayList;
 
+import com.mygame.test.PlayState;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -11,13 +13,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class FlappyBird extends ApplicationAdapter {
     private SpriteBatch batch;
     private float[] backgroundOffsets = {0, 360, 720};
-    private float scrollSpeed = 2;
+    private final float SCROLL_SPEED = 2f;
 
     @Override
     public void create() {
         batch = new SpriteBatch();
-        AssetManager.getInstance().loadAssets(); // Загрузка всех текстур
-        GameStateManager.getInstance().setState(new PlayState());
+        AssetManager.getInstance().loadAssets();
+        GameStateManager.getInstance().setState(new PlayState(SCROLL_SPEED));
     }
 
     @Override
@@ -25,7 +27,7 @@ public class FlappyBird extends ApplicationAdapter {
         InputHandler.getInstance().update();
 
         for (int i = 0; i < backgroundOffsets.length; i++) {
-            backgroundOffsets[i] -= scrollSpeed;
+            backgroundOffsets[i] -= SCROLL_SPEED;
             if (backgroundOffsets[i] <= -360) backgroundOffsets[i] = 720;
         }
 

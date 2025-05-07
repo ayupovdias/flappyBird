@@ -10,8 +10,8 @@ public class WallPair {
 
     public WallPair(float x, float gapY) {
         this.gapY = gapY;
-        topWall = new Wall(x, gapY + 200, true);
-        bottomWall = new Wall(x, gapY - 200, false);
+        topWall = new Wall(x, gapY + 440, true);
+        bottomWall = new Wall(x, gapY - 400, false);
     }
     public Rectangle getTopBounds(){
         return topWall.getBounds();

@@ -10,9 +10,11 @@ public class PlayState implements GameState {
     private final List<WallPair> walls;
     private final WallFactory wallFactory;
     private final CollisionManager collisionManager;
+    private final float scrollSpeed;
     private float timeSinceLastWall = 0;
 
-    public PlayState() {
+    public PlayState(float scrollSpeed) {
+        this.scrollSpeed=scrollSpeed;
         bird = new Bird();
         walls = new ArrayList<>();
         wallFactory = new WallFactory();
@@ -25,21 +27,21 @@ public class PlayState implements GameState {
 
     @Override
     public void render(SpriteBatch batch, float delta) {
-        // Обновление птицы и фона
+        walls.forEach(wall->wall.update(this.scrollSpeed));
         bird.update(delta);
         bird.render(batch);
         for(WallPair wall :walls){
             wall.render(batch);
         }
 
-        // Генерация труб
+
         timeSinceLastWall += delta;
         if (timeSinceLastWall >= 2) {
             walls.add(wallFactory.createWallPair(720));
             timeSinceLastWall = 0;
         }
 
-        // Проверка столкновений
+
         collisionManager.checkCollisions();
     }
 
