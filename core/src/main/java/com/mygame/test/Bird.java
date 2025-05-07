@@ -14,7 +14,7 @@ public class Bird {
     private static final float JUMP_FORCE = 3.5f;
     private final Rectangle bounds;
     public Bird() {
-        texture = new Texture("bird1.png");
+        texture =AssetManager.getInstance().bird;
         position = new Vector2(100, 320);
         velocity = 0;
         bounds=new Rectangle(position.x, position.y, 50,48);
@@ -54,7 +54,5 @@ public class Bird {
         batch.draw(texture, position.x, position.y, 50, 48);
     }
 
-    public void dispose() {
-        texture.dispose();
-    }
+
 }

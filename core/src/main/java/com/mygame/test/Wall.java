@@ -11,11 +11,11 @@ public class Wall {
     private final Rectangle bounds;
 
     public Wall(float x, float y, boolean isTop) {
-        this.texture = new Texture("wall.png");
+        texture =AssetManager.getInstance().wall;
         this.x = x;
         this.y = y;
         this.isTop = isTop;
-        this.bounds = new Rectangle(x, y, 50, 300);
+        bounds = new Rectangle(x, y, 50,300);
         if(isTop) bounds.height*=-1;
     }
     public Rectangle getBounds() { return bounds; }
@@ -30,9 +30,7 @@ public class Wall {
         batch.draw(texture, x, y, 50, height);
     }
 
-    public void dispose() {
-        texture.dispose();
-    }
+
 
     public float getX() { return x; }
     public float getY() { return y; }
