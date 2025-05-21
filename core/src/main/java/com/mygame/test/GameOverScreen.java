@@ -29,14 +29,15 @@ public class GameOverScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0.3f, 0.3f, 0.3f, 1);
+        Gdx.gl.glClearColor(0, 0.55f, 0.7f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         game.batch.begin();
         game.batch.draw(restartTexture, 160, 250);
         font.getData().setScale(2);
-        font.draw(game.batch, "Final Score: " + finalScore, 250, 200);
-        font.draw(game.batch, "Press SPACE to restart", 220, 150);
+        font.draw(game.batch, "Final Score: " + finalScore, 260, 200);
+        font.draw(game.batch, "Difficulty: "+difficulty.getName(), 260, 160);
+        font.draw(game.batch, "Press SPACE to restart", 200, 120);
         game.batch.end();
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {

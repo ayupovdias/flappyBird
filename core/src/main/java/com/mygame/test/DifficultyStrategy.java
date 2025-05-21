@@ -4,4 +4,5 @@ public interface DifficultyStrategy {
     float getPipeSpeed();
     float getGravity();
     float getGap();
+    String getName();
 }
