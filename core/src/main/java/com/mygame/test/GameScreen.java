@@ -21,7 +21,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void show() {
-        // Ничего не нужно
+
     }
 
     @Override
@@ -48,22 +48,22 @@ public class GameScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        // Необязательно
+
     }
 
     @Override
     public void pause() {
-        // Необязательно
+
     }
 
     @Override
     public void resume() {
-        // Необязательно
+
     }
 
     @Override
     public void hide() {
-        // Необязательно
+
     }
 
     @Override
